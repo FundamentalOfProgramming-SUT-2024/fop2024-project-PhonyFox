@@ -28,7 +28,7 @@ extern int passwordChances;
 extern int gameStatus;
 extern int spellOrLevel;
 extern int inSpellRoomRandom;
-extern char spellRoomTiles[40][120];
+extern char spellRoomTiles[40][150];
 extern int numberOfFoods;
 extern int walkingAndHunger;
 extern int fullToHealth;
@@ -49,6 +49,10 @@ extern Mix_Music *current_music;
 extern int totalHealth;
 extern int lastPrintedLine;
 extern char musicName[50];
+extern int foodSteps[4][5];
+extern int totalWalk;
+extern int hasPassword;
+extern int timeForPassword;
 
 
 
@@ -59,6 +63,7 @@ typedef struct UserForBoard {
     int total_games;
     int score;
     int gold;
+    int day;
 } UserForBoard;
 
 typedef struct User {
@@ -269,6 +274,10 @@ void  troll20();
 void printLost();
 void clearThere();
 void stop_music();
+void play_effect2();
+void play_effect3();
+void play_effect4();
+void profileMenu();
 
 
 #endif

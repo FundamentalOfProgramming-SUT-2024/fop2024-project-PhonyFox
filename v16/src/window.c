@@ -1,7 +1,7 @@
 #include "rogue.h"
 
 int windowMaker() {
-  WINDOW * window = newwin(7, 26, 1, 102);
+  WINDOW * window = newwin(7, 26, 19, 103);
   box(window, 0, 0);
   wrefresh(window);
   mvwprintw(window, 1, 1, "Enter The Password:");
@@ -42,13 +42,28 @@ int windowMaker() {
     mvwprintw(window, 3, 1, "Password is wrong!");
     switch(passwordChances) {
       case 2:
-        mvwprintw(window, 4, 1, "You have two chances!");
+        clearLine(emptyLine());
+        attron(A_DIM);
+        attron(COLOR_PAIR(4));
+        mvprintw(emptyLine(), 2, "You have two chances!");
+        attroff(A_DIM);
+        attroff(COLOR_PAIR(4));
         break;
       case 1:
-        mvwprintw(window, 4, 1, "You have one chance!");
+        clearLine(emptyLine());
+        attron(A_DIM);
+        attron(COLOR_PAIR(2));
+        mvprintw(emptyLine(), 2, "You have one chance!");
+        attroff(A_DIM);
+        attroff(COLOR_PAIR(2));
         break;
       case 0:
-        mvwprintw(window, 4, 1, "Security mode activated.");
+        clearLine(emptyLine());
+        attron(A_DIM);
+        attron(COLOR_PAIR(6));
+        mvprintw(emptyLine(), 2, "Security mode activated.");
+        attroff(A_DIM);
+        attroff(COLOR_PAIR(6));
         break;
     }
     mvwprintw(window, 5, 1, "press any key to exit");

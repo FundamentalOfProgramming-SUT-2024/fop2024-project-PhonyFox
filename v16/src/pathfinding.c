@@ -66,11 +66,9 @@ void pathFind(Position * start, Position * end)
     }
   }
 
-  // add start to cameFrom
   cameFrom[start->y][start->x][0] = -9;
   cameFrom[start->y][start->x][1] = -9;
 
-  // add start position to frontier
   addPositionYX(frontier, frontierCount, start->y, start->x);
   frontierCount++;
 
@@ -107,7 +105,5 @@ void pathFind(Position * start, Position * end)
       attroff(A_DIM);
       attroff(COLOR_PAIR(1));
     }
-    //getch();
   }
-
 }

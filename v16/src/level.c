@@ -66,10 +66,10 @@ void connectDoors(Level * level) {
 
 char ** saveLevelPosition() {
   char ** positions;
-  positions = malloc(sizeof(char *) * 25);
-  for (int y = 0; y < 25; y++) {
-    positions[y] = malloc(sizeof(char) * 100);
-    for (int x = 0; x < 100; x++) {
+  positions = malloc(sizeof(char *) * 40);
+  for (int y = 0; y < 40; y++) {
+    positions[y] = malloc(sizeof(char) * 150);
+    for (int x = 0; x < 150; x++) {
       if((mvinch(y, x) & A_CHARTEXT) != '@') positions[y][x] = (mvinch(y, x) & A_CHARTEXT);
       else positions[y][x] = '.';
       }

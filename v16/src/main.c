@@ -335,7 +335,6 @@ int main ()
     */
    //printTrolls();
    //trollFace();
-
     mainMenu();
     return 0;
 }

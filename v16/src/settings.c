@@ -35,6 +35,7 @@ void difficultySetting() {
 
         c = wgetch(menu_win);
         switch (c) {
+            refresh();
             case KEY_DOWN:
                 currentIndex = (currentIndex + 1) % numChoices;
                 break;
@@ -85,6 +86,7 @@ void settingNavigator(int choice) {
         while (flag) {
             c = getch();
             switch (c) {
+                refresh();
                 case KEY_DOWN:
                     menu_driver(colorMenu, REQ_DOWN_ITEM);
                     break;
@@ -105,23 +107,23 @@ void settingNavigator(int choice) {
         characterColor = 1;
         clear();
         refresh();
-        mainMenu();
+        preGameMenu();
     } else if (currentIndex == 1) {
         characterColor = 2;
         clear();
         refresh();
-        mainMenu();
+        preGameMenu();
     } else if (currentIndex == 2) {
         characterColor = 3;
         clear();
         refresh();
-        mainMenu();
+        preGameMenu();
     }
     else {
         characterColor = 4;
         clear();
         refresh();
-        mainMenu();
+        preGameMenu();
     }
 
     // unpost_menu(settingMenu1);
@@ -160,6 +162,7 @@ void settingNavigator(int choice) {
         while (flag) {
             c = getch();
             switch (c) {
+                refresh();
                 case KEY_DOWN:
                     menu_driver(settingMenu1, REQ_DOWN_ITEM);
                     break;
@@ -180,17 +183,17 @@ void settingNavigator(int choice) {
         difficulty = 15;
         clear();
         refresh();
-        mainMenu();
+        preGameMenu();
     } else if (currentIndex == 1) {
         difficulty = 12;
         clear();
         refresh();
-        mainMenu();
+        preGameMenu();
     } else {
         difficulty = 9;
         clear();
         refresh();
-        mainMenu();
+        preGameMenu();
     }
 
     unpost_menu(settingMenu1);
@@ -273,6 +276,8 @@ void userSettings() {
     while (flag) {
         c = getch();
         switch (c) {
+            refresh();
+            refresh();
             case KEY_DOWN:
                 menu_driver(settingMenu, REQ_DOWN_ITEM);
                 break;

@@ -25,7 +25,7 @@ void chooseSpell(Level * level) {
         case '1':
             if (level->user->sSpeed > 0) {
                 level->user->sSpeed--;
-                speedSteps = 10;
+                speedSteps = 50;
                 hasSpeedSpell = 1;
             }
             else {
@@ -40,7 +40,7 @@ void chooseSpell(Level * level) {
         case '2':
             if (level->user->sHealth > 0) {
                 level->user->sHealth--;
-                healthSteps = 10;
+                healthSteps = 50;
                 hasHealthSpell = 1;
             }
             else {
@@ -55,7 +55,7 @@ void chooseSpell(Level * level) {
         case '3':
             if (level->user->sDamage > 0) {
                 level->user->sDamage--;
-                damageSteps = 10;
+                damageSteps = 50;
                 hasDamageSpell = 1;
             }
             else {

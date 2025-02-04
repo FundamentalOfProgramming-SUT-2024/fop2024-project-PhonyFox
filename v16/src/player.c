@@ -5,12 +5,14 @@ int gameStatus = 0;
 int spellOrLevel = 0;
 int inSpellRoomRandom = 0;
 int isInTreasure = 0;
+int hasPassword = 0;
+int timeForPassword = 0;
 
 Player * playerSetUp() {
   Player * newPlayer;
   newPlayer = malloc(sizeof(Player));
   newPlayer->position = malloc(sizeof(Position));
-  newPlayer->health = 1000;
+  newPlayer->health = 250;
   newPlayer->maxHealth = 20;
   newPlayer->gold = 0;
   newPlayer->exp = 0;
@@ -97,10 +99,13 @@ int checkPosition(Position * newPosition, Level * level) {
       break;
     case 'p':
       doorPassword = rand() % 9000 + 1000;
-      clearLine(emptyLine());
+      hasPassword = 1;
+      //clearLine(emptyLine());
       attron(A_DIM);
       attron(COLOR_PAIR(1));
-      mvprintw(emptyLine(), 2, "%d", doorPassword);
+      attron(A_BLINK);
+      mvprintw(28, 102, "Password Is: %d", doorPassword);
+      attroff(A_BLINK);
       attroff(A_DIM);
       attroff(COLOR_PAIR(1));
       playerMove(newPosition, user, level->tiles);
@@ -122,6 +127,13 @@ int checkPosition(Position * newPosition, Level * level) {
     case '?':
       clear();
   	  level->level += 1;
+      play_effect_newRoom();
+      clearLine(emptyLine());
+      attron(A_DIM);
+      attron(COLOR_PAIR(1));
+      mvprintw(emptyLine(), 2, "New Level!");
+      attroff(A_DIM);
+      attroff(COLOR_PAIR(1));
       for (int i = 0; i < level->numberOfMonsters; i++) {
         level->monstersList[i]->alive = 0;
       }
@@ -144,8 +156,9 @@ int checkPosition(Position * newPosition, Level * level) {
       }
       else {
         spellRoomMaker();
-        newPosition->y = 2;
-        newPosition->x = 103;
+        printGameHub(level);
+        newPosition->y = 28;
+        newPosition->x = 131;
         inSpellRoomRandom = 1;
         playerMove(newPosition, user, level->tiles);
       }
@@ -170,13 +183,14 @@ int checkPosition(Position * newPosition, Level * level) {
       attroff(A_DIM);
       attroff(COLOR_PAIR(1));
       level->user->gold += 1;
+      play_effect4();
       playerMove(newPosition, user, level->tiles);
       break;
     case 'U':
       clear();
       refresh();
       play_or_replace_music("music1.mp3");
-      inSpellRoomRandom = 0;
+      isInSpellRoom = 0;
       level->rooms = roomsSetUp();
       connectDoors(level);
       level->tiles = saveLevelPosition();
@@ -190,7 +204,41 @@ int checkPosition(Position * newPosition, Level * level) {
       mvprintw(emptyLine(), 2, "Food is good!");
       attroff(A_DIM);
       attroff(COLOR_PAIR(1));
-      if (numberOfFoods < 5) numberOfFoods += 1;
+      if (numberOfFoods < 20) numberOfFoods += 1;
+      if (PAIR_NUMBER(mvinch(newPosition->y, newPosition->x)) == 5) {
+        if (rand() % 2) {
+        for (int i = 0; i < 5; i++) {
+          if (foodSteps[1][i] == 0) {
+            foodSteps[1][i] = totalWalk;
+            break;
+          }
+        }
+        }
+        else {
+        for (int i = 0; i < 5; i++) {
+          if (foodSteps[0][i] == 0) {
+            foodSteps[0][i] = totalWalk;
+            break;
+          }
+        }
+        }
+      }
+      if (PAIR_NUMBER(mvinch(newPosition->y, newPosition->x)) == 4) {
+        for (int i = 0; i < 5; i++) {
+          if (foodSteps[2][i] == 0) {
+            foodSteps[2][i] = totalWalk;
+            break;
+          }
+        }
+      }
+      if (PAIR_NUMBER(mvinch(newPosition->y, newPosition->x)) == 6) {
+        for (int i = 0; i < 5; i++) {
+          if (foodSteps[3][i] == 0) {
+            foodSteps[3][i] = totalWalk;
+            break;
+          }
+        }
+      }
       playerMove(newPosition, user, level->tiles);
       break;
     //gold: g, black gold: G, gorz: M, khanjar: D, asa: S, tir: A, shamshir: W, s sorat: v, s health: h, s damage: d
@@ -221,6 +269,7 @@ int checkPosition(Position * newPosition, Level * level) {
       attroff(A_DIM);
       attroff(COLOR_PAIR(1));
       level->user->gold += 3;
+      play_effect4();
       playerMove(newPosition, user, level->tiles);
       break;
     case 'F':
@@ -236,12 +285,20 @@ int checkPosition(Position * newPosition, Level * level) {
 
 int playerMove(Position * newPosition, Player * user, char ** tiles)
 {
+    if (hasPassword) {
+      timeForPassword++;
+      if (timeForPassword == 30) {
+        mvprintw(28, 102, "                     ");
+        timeForPassword = 0;
+        hasPassword = 0;
+      }
+    }
   	if (tiles == NULL) {
           return 0;
   	}
     char ch = tiles[user->position->y][user->position->x];
     if (!(ch == 'g' || ch == 'G' || ch == 'f')) {
-    	if (!inSpellRoomRandom) {
+    	if (!isInSpellRoom) {
         printWithColor(user->position->y, user->position->x, ch);
       }
       else {
@@ -256,7 +313,7 @@ int playerMove(Position * newPosition, Player * user, char ** tiles)
     user->position->y = newPosition->y;
     user->position->x = newPosition->x;
 	if ((mvinch(user->position->y, user->position->x) & A_CHARTEXT) == '.') {
-    if (!inSpellRoomRandom) {
+    if (!isInSpellRoom) {
       if (rand() % 100 == 0) {
         user->health = user->health - 1;
         clearLine(emptyLine());
@@ -291,9 +348,10 @@ void changeGun(Level * level) {
   mvprintw(emptyLine(), 2, "Choose A Number Between 1 to 5");
   attroff(A_DIM);
   attroff(COLOR_PAIR(1));
-  char ch = getch();
-  if (ch != 'w') return;
-  else ch = getch(); 
+  int ch;
+  //if (ch != 'w') return;
+  while ((ch = getch()) != 'w') {}
+  ch = getch(); 
   switch (ch) {
     case '2':
       level->user->gunType = 2;

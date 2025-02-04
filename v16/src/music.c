@@ -45,6 +45,38 @@ void play_effect1() {
     }
 }
 
+void play_effect2() {
+    // Check if the channel is currently playing
+    if (!Mix_Playing(2)) {
+        Mix_Chunk *effect1 = Mix_LoadWAV("bleeding.mp3");
+        if (effect1) {
+            Mix_PlayChannel(2, effect1, 0);
+        }
+    }
+}
+
+void play_effect3() {
+    // Check if the channel is currently playing
+    if (!Mix_Playing(2)) {
+        Mix_Chunk *effect1 = Mix_LoadWAV("collect.mp3");
+        if (effect1) {
+            Mix_PlayChannel(2, effect1, 0);
+        }
+    }
+}
+
+void play_effect4() {
+    // Check if the channel is currently playing
+    if (!Mix_Playing(2)) {
+        Mix_Chunk *effect1 = Mix_LoadWAV("coin.mp3");
+        if (effect1) {
+            Mix_PlayChannel(2, effect1, 0);
+        }
+    }
+}
+
+
+
 void play_effect_newRoom() {
     Mix_Chunk *effect2 = Mix_LoadWAV("effect2.mp3");
     Mix_PlayChannel(-1, effect2, 0);

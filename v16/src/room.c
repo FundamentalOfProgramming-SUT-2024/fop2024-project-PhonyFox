@@ -195,7 +195,12 @@ int drawRoom(Room * room)
     y = rand() % (room->height - 2) + room->position.y + 1;
     printWithColor(y, x, 'd');
   }
-  if (randomItemNumber % 15 == 8) {
+  if (randomItemNumber % 15 > 8) {
+    x = rand() % (room->width - 2) + room->position.x + 1;
+    y = rand() % (room->height - 2) + room->position.y + 1;
+    printWithColor(y, x, 'f');
+  }
+  if (rand() % 4 == 1) {
     x = rand() % (room->width - 2) + room->position.x + 1;
     y = rand() % (room->height - 2) + room->position.y + 1;
     printWithColor(y, x, 'f');

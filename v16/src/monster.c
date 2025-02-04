@@ -85,7 +85,6 @@ void pathfindingRandom(Position * position) {
 }
 
 void pathfindingSeek(Position * start, Position * destination) {
-    /* step left */
     if ((abs((start->x - 1) - destination->x) < abs(start->x - destination->x)) && ((mvinch(start->y, start->x - 1) & A_CHARTEXT) == '.'))
     {   
         attron(A_DIM);
@@ -95,7 +94,6 @@ void pathfindingSeek(Position * start, Position * destination) {
         attroff(COLOR_PAIR(1));
         start->x = start->x - 1;
 
-    /* step right */
     } else if ((abs((start->x + 1) - destination->x) < abs(start->x - destination->x)) && ((mvinch(start->y, start->x + 1) & A_CHARTEXT) == '.'))
     {
         attron(A_DIM);
@@ -105,7 +103,6 @@ void pathfindingSeek(Position * start, Position * destination) {
         attroff(COLOR_PAIR(1));
         start->x = start->x + 1;
     
-    /* step down */
     } else if ((abs((start->y + 1) - destination->y) < abs(start->y - destination->y)) && ((mvinch(start->y + 1, start->x) & A_CHARTEXT) == '.'))
     {
         attron(A_DIM);
@@ -114,8 +111,6 @@ void pathfindingSeek(Position * start, Position * destination) {
         attroff(A_DIM);
         attroff(COLOR_PAIR(1));
         start->y = start->y + 1;
-
-    /* step up */
     } else if ((abs((start->y - 1) - destination->y) < abs(start->y - destination->y)) && ((mvinch(start->y - 1, start->x) & A_CHARTEXT) == '.'))
     {
         attron(A_DIM);
@@ -126,7 +121,6 @@ void pathfindingSeek(Position * start, Position * destination) {
         start->y = start->y - 1;
     } else
     {
-        /* do nothing */
     }
 }
 

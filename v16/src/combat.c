@@ -91,7 +91,7 @@ void combat(int gun, Level * level) {
                 attroff(A_DIM);
                 attroff(COLOR_PAIR(1));
                 play_effect_fight();
-                mvprintw(0, 1, "%d", monster->health);
+                // mvprintw(0, 1, "%d", monster->health);
                 if (monster->health <= 0) {
                     killMonster(monster);
                     attron(A_DIM);
@@ -269,7 +269,7 @@ void arrowLauncher(Level * level) {
     clearLine(emptyLine());
     attron(A_DIM);
     attron(COLOR_PAIR(1));
-    mvprintw(emptyLine(), 1, "Aim!");
+    mvprintw(emptyLine(), 2, "Aim!");
     attroff(A_DIM);
     attroff(COLOR_PAIR(1));
     int ch;
@@ -328,6 +328,17 @@ void arrowLauncher(Level * level) {
                     return;
                     break;
                 }
+                attron(A_BOLD);
+                attron(A_UNDERLINE);
+                attron(COLOR_PAIR(2));
+                mvprintw(level->user->position->y + i, level->user->position->x, "`");
+                attroff(A_BOLD);
+                attroff(A_UNDERLINE);
+                attroff(COLOR_PAIR(2));
+                refresh();
+                napms(50);
+                printWithColor(level->user->position->y + i, level->user->position->x, '.');
+                
             }
             attron(A_BOLD);
             attron(A_UNDERLINE);
@@ -381,6 +392,16 @@ void arrowLauncher(Level * level) {
                     return;
                     break;
                 }
+                attron(A_BOLD);
+                attron(A_UNDERLINE);
+                attron(COLOR_PAIR(2));
+                mvprintw(level->user->position->y, level->user->position->x + i, "`");
+                attroff(A_BOLD);
+                attroff(A_UNDERLINE);
+                attroff(COLOR_PAIR(2));
+                refresh();
+                napms(50);
+                printWithColor(level->user->position->y, level->user->position->x + i, '.');
             }
             attron(A_BOLD);
             attron(A_UNDERLINE);
@@ -434,6 +455,16 @@ void arrowLauncher(Level * level) {
                     return;
                     break;
                 }
+                attron(A_BOLD);
+                attron(A_UNDERLINE);
+                attron(COLOR_PAIR(2));
+                mvprintw(level->user->position->y - i, level->user->position->x, "`");
+                attroff(A_BOLD);
+                attroff(A_UNDERLINE);
+                attroff(COLOR_PAIR(2));
+                refresh();
+                napms(50);
+                printWithColor(level->user->position->y - i, level->user->position->x, '.');
             }
             attron(A_BOLD);
             attron(A_UNDERLINE);
@@ -487,6 +518,16 @@ void arrowLauncher(Level * level) {
                     return;
                     break;
                 }
+                attron(A_BOLD);
+                attron(A_UNDERLINE);
+                attron(COLOR_PAIR(2));
+                mvprintw(level->user->position->y, level->user->position->x - i, "`");
+                attroff(A_BOLD);
+                attroff(A_UNDERLINE);
+                attroff(COLOR_PAIR(2));
+                refresh();
+                napms(50);
+                printWithColor(level->user->position->y, level->user->position->x - i, '.');
             }
             attron(A_BOLD);
             attron(A_UNDERLINE);
@@ -503,7 +544,7 @@ void wandLauncher(Level * level) {
     clearLine(emptyLine());
     attron(A_DIM);
     attron(COLOR_PAIR(1));
-    mvprintw(emptyLine(), 1, "Aim!");
+    mvprintw(emptyLine(), 2, "Aim!");
     attroff(A_DIM);
     attroff(COLOR_PAIR(1));
     int ch;
@@ -554,6 +595,16 @@ void wandLauncher(Level * level) {
                     return;
                     break;
                 }
+                attron(A_BOLD);
+                attron(A_UNDERLINE);
+                attron(COLOR_PAIR(2));
+                mvprintw(level->user->position->y + i, level->user->position->x, ",");
+                attroff(A_BOLD);
+                attroff(A_UNDERLINE);
+                attroff(COLOR_PAIR(2));
+                refresh();
+                napms(50);
+                printWithColor(level->user->position->y + i, level->user->position->x, '.');
             }
             attron(A_BOLD);
             attron(A_UNDERLINE);
@@ -599,6 +650,16 @@ void wandLauncher(Level * level) {
                     return;
                     break;
                 }
+                attron(A_BOLD);
+                attron(A_UNDERLINE);
+                attron(COLOR_PAIR(2));
+                mvprintw(level->user->position->y, level->user->position->x + i, ",");
+                attroff(A_BOLD);
+                attroff(A_UNDERLINE);
+                attroff(COLOR_PAIR(2));
+                refresh();
+                napms(50);
+                printWithColor(level->user->position->y, level->user->position->x + i, '.');
             }
             attron(A_BOLD);
             attron(A_UNDERLINE);
@@ -644,6 +705,16 @@ void wandLauncher(Level * level) {
                     return;
                     break;
                 }
+                attron(A_BOLD);
+                attron(A_UNDERLINE);
+                attron(COLOR_PAIR(2));
+                mvprintw(level->user->position->y - i, level->user->position->x, ",");
+                attroff(A_BOLD);
+                attroff(A_UNDERLINE);
+                attroff(COLOR_PAIR(2));
+                refresh();
+                napms(50);
+                printWithColor(level->user->position->y - i, level->user->position->x, '.');
             }
             attron(A_BOLD);
             attron(A_UNDERLINE);
@@ -689,6 +760,16 @@ void wandLauncher(Level * level) {
                     return;
                     break;
                 }
+                attron(A_BOLD);
+                attron(A_UNDERLINE);
+                attron(COLOR_PAIR(2));
+                mvprintw(level->user->position->y, level->user->position->x - i, ",");
+                attroff(A_BOLD);
+                attroff(A_UNDERLINE);
+                attroff(COLOR_PAIR(2));
+                refresh();
+                napms(50);
+                printWithColor(level->user->position->y, level->user->position->x - i, '.');
             }
             attron(A_BOLD);
             attron(A_UNDERLINE);
@@ -705,7 +786,7 @@ void daggerLauncher(Level * level) {
     clearLine(emptyLine());
     attron(A_DIM);
     attron(COLOR_PAIR(1));
-    mvprintw(emptyLine(), 1, "Aim!");
+    mvprintw(emptyLine(), 2, "Aim!");
     attroff(A_DIM);
     attroff(COLOR_PAIR(1));
     int ch;
@@ -764,6 +845,16 @@ void daggerLauncher(Level * level) {
                     return;
                     break;
                 }
+                attron(A_BOLD);
+                attron(A_UNDERLINE);
+                attron(COLOR_PAIR(2));
+                mvprintw(level->user->position->y + i, level->user->position->x, "~");
+                attroff(A_BOLD);
+                attroff(A_UNDERLINE);
+                attroff(COLOR_PAIR(2));
+                refresh();
+                napms(50);
+                printWithColor(level->user->position->y + i, level->user->position->x, '.');
             }
             attron(A_BOLD);
             attron(A_UNDERLINE);
@@ -817,6 +908,16 @@ void daggerLauncher(Level * level) {
                     return;
                     break;
                 }
+                attron(A_BOLD);
+                attron(A_UNDERLINE);
+                attron(COLOR_PAIR(2));
+                mvprintw(level->user->position->y, level->user->position->x + i, "~");
+                attroff(A_BOLD);
+                attroff(A_UNDERLINE);
+                attroff(COLOR_PAIR(2));
+                refresh();
+                napms(50);
+                printWithColor(level->user->position->y, level->user->position->x + i, '.');
             }
             attron(A_BOLD);
             attron(A_UNDERLINE);
@@ -870,6 +971,16 @@ void daggerLauncher(Level * level) {
                     return;
                     break;
                 }
+                attron(A_BOLD);
+                attron(A_UNDERLINE);
+                attron(COLOR_PAIR(2));
+                mvprintw(level->user->position->y - i, level->user->position->x, "~");
+                attroff(A_BOLD);
+                attroff(A_UNDERLINE);
+                attroff(COLOR_PAIR(2));
+                refresh();
+                napms(50);
+                printWithColor(level->user->position->y - i, level->user->position->x, '.');
             }
             attron(A_BOLD);
             attron(A_UNDERLINE);
@@ -923,6 +1034,16 @@ void daggerLauncher(Level * level) {
                     return;
                     break;
                 }
+                attron(A_BOLD);
+                attron(A_UNDERLINE);
+                attron(COLOR_PAIR(2));
+                mvprintw(level->user->position->y, level->user->position->x - i, "~");
+                attroff(A_BOLD);
+                attroff(A_UNDERLINE);
+                attroff(COLOR_PAIR(2));
+                refresh();
+                napms(50);
+                printWithColor(level->user->position->y, level->user->position->x - i, '.');
             }
             attron(A_BOLD);
             attron(A_UNDERLINE);
@@ -944,6 +1065,8 @@ void monstersAttack(Level * level) {
             if (monster) {
                 level->user->health -= monster->attack;
                 char * monsterName = getMonsterName(monster->symbol);
+                clearLine(emptyLine());
+                play_effect2();
                 attron(A_DIM);
                 attron(COLOR_PAIR(1));
                 mvprintw(emptyLine(), 2, "A %s Hit You! (%d)", monsterName, monster->attack);
@@ -962,6 +1085,8 @@ void monstersAttack(Level * level) {
             if (monster) {
                 level->user->health -= monster->attack;
                 char * monsterName = getMonsterName(monster->symbol);
+                clearLine(emptyLine());
+                play_effect2();
                 attron(A_DIM);
                 attron(COLOR_PAIR(1));
                 mvprintw(emptyLine(), 2, "A %s Hit You! (%d)", monsterName, monster->attack);
@@ -980,6 +1105,8 @@ void monstersAttack(Level * level) {
             if (monster) {
                 level->user->health -= monster->attack;
                 char * monsterName = getMonsterName(monster->symbol);
+                clearLine(emptyLine());
+                play_effect2();
                 attron(A_DIM);
                 attron(COLOR_PAIR(1));
                 mvprintw(emptyLine(), 2, "A %s Hit You! (%d)", monsterName, monster->attack);
@@ -998,6 +1125,8 @@ void monstersAttack(Level * level) {
             if (monster) {
                 level->user->health -= monster->attack;
                 char * monsterName = getMonsterName(monster->symbol);
+                clearLine(emptyLine());
+                play_effect2();
                 attron(A_DIM);
                 attron(COLOR_PAIR(1));
                 mvprintw(emptyLine(), 2, "A %s Hit You! (%d)", monsterName, monster->attack);
@@ -1016,6 +1145,8 @@ void monstersAttack(Level * level) {
             if (monster) {
                 level->user->health -= monster->attack;
                 char * monsterName = getMonsterName(monster->symbol);
+                clearLine(emptyLine());
+                play_effect2();
                 attron(A_DIM);
                 attron(COLOR_PAIR(1));
                 mvprintw(emptyLine(), 2, "A %s Hit You! (%d)", monsterName, monster->attack);
@@ -1034,6 +1165,8 @@ void monstersAttack(Level * level) {
             if (monster) {
                 level->user->health -= monster->attack;
                 char * monsterName = getMonsterName(monster->symbol);
+                clearLine(emptyLine());
+                play_effect2();
                 attron(A_DIM);
                 attron(COLOR_PAIR(1));
                 mvprintw(emptyLine(), 2, "A %s Hit You! (%d)", monsterName, monster->attack);
@@ -1052,9 +1185,11 @@ void monstersAttack(Level * level) {
             if (monster) {
                 level->user->health -= monster->attack;
                 char * monsterName = getMonsterName(monster->symbol);
+                clearLine(emptyLine());
                 attron(A_DIM);
                 attron(COLOR_PAIR(1));
                 mvprintw(emptyLine(), 2, "A %s Hit You! (%d)", monsterName, monster->attack);
+                play_effect2();
                 attroff(A_DIM);
                 attroff(COLOR_PAIR(1));
             }
@@ -1070,6 +1205,8 @@ void monstersAttack(Level * level) {
             if (monster) {
                 level->user->health -= monster->attack;
                 char * monsterName = getMonsterName(monster->symbol);
+                clearLine(emptyLine());
+                play_effect2();
                 attron(A_DIM);
                 attron(COLOR_PAIR(1));
                 mvprintw(emptyLine(), 2, "A %s Hit You! (%d)", monsterName, monster->attack);

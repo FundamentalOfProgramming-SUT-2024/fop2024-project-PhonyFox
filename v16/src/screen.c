@@ -1,6 +1,6 @@
 #include "rogue.h"
 
-int totalHealth = 1000;
+int totalHealth = 250;
 int lastPrintedLine = 26;
 
 int screenSetUp()
@@ -212,9 +212,22 @@ void printWithColor(int y, int x, char ch) {
       attroff(COLOR_PAIR(1));
       break;
     case 'f':
+      int randomFood = rand() % 3;
+      if (randomFood == 0) {
       attron(COLOR_PAIR(5));
       mvprintw(y, x, "%c", ch);
       attroff(COLOR_PAIR(5));
+      }
+      else if (randomFood == 1) {
+        attron(COLOR_PAIR(4));
+        mvprintw(y, x, "%c", ch);
+        attroff(COLOR_PAIR(4));
+      }
+      else {
+        attron(COLOR_PAIR(6));
+        mvprintw(y, x, "%c", ch);
+        attroff(COLOR_PAIR(6));
+      }
       break;
     case 'F':
       attron(A_BOLD);
@@ -289,6 +302,9 @@ void printWithColor(int y, int x, char ch) {
     case 'h':
     case 'v':
     case 'd':
+      attron(COLOR_PAIR(2));
+      mvprintw(y, x, "%c", ch);
+      attroff(COLOR_PAIR(2));
       break;
     case '?':
       attron(A_BOLD);

@@ -3,6 +3,40 @@
 char currentUserLogin[50];
 int isGeust = 0;
 
+
+void profileMenu() {
+    FILE *file;
+    char filename[100];
+    char username[100], email[100], password[100];
+    
+    snprintf(filename, sizeof(filename), "%s.txt", currentUserLogin);
+    file = fopen(filename, "r");
+
+    if (file == NULL) return;
+
+    fgets(username, sizeof(username), file);
+    username[strcspn(username, "\n")] = '\0';
+
+    fgets(email, sizeof(email), file);
+    email[strcspn(email, "\n")] = '\0';
+
+    fgets(password, sizeof(password), file);
+    password[strcspn(password, "\n")] = '\0';
+
+    fclose(file);
+
+    mvprintw(1, 1, "%s", username);
+    mvprintw(2, 1, "%s", email);
+    refresh();
+    int ch = getch();
+    mvprintw(3,1, "Press [P] To Show Your Password, Esc To Exit");
+    while ((ch = getch()) != 27) {
+        if (ch == 'p') mvprintw(3,1,"%s                                             ", password);
+        refresh();
+    }
+    preGameMenu();
+}
+
 void preWin(int choice) {
 	if (choice == 0) {
 		clear();
@@ -28,15 +62,18 @@ void preWin(int choice) {
 	if (choice == 3) {
         rankUsersByScore();
 	}
+    if (choice == 4) {
+        profileMenu();
+    }
 }
 
 
 void preGameMenu() {
 	clear();
 	refresh();
-	char *preChoices[] = {"New Game", "Resume Game", "Settings", "Scoreboard"};
-	ITEM **preItems = (ITEM **)calloc(4, sizeof(ITEM *));
-	for (int i = 0; i < 4; i++) {
+	char *preChoices[] = {"New Game", "Resume Game", "Settings", "Scoreboard", "Profile"};
+	ITEM **preItems = (ITEM **)calloc(10, sizeof(ITEM *));
+	for (int i = 0; i < 5; i++) {
 		preItems[i] = new_item(preChoices[i], "");
 	}
 
@@ -283,6 +320,7 @@ int saveUser(User *user) {
     fprintf(file, "Username: %s\n", user->username);
     fprintf(file, "Email: %s\n", user->email);
     fprintf(file, "Password: %s\n", user->password);
+    fprintf(file, "%ld\n", time(NULL)/86400);
     fclose(file);
     return 1;
 }
@@ -420,7 +458,7 @@ void createPlayerMenu() {
         attron(A_BOLD);
         attron(COLOR_PAIR(1));
         mvprintw(5, 2, "User was created successfully.");
-        // char file1[100], file2[100], leaderboard_line[150];
+        char leaderboard_line[150];
         // snprintf(file1, sizeof(file1), "%s.txt", user.username);
         // snprintf(file2, sizeof(file2), "%sMAP.txt", user.username);
 
@@ -430,10 +468,10 @@ void createPlayerMenu() {
         // FILE *f2 = fopen(file2, "w");
         // fclose(f2);
 
-        // snprintf(leaderboard_line, sizeof(leaderboard_line), "%s,0,0,0,0\n", user.username);
-        // FILE *leaderboard = fopen("LEADERBOARD.txt", "a");
-        // fputs(leaderboard_line, leaderboard);
-        // fclose(leaderboard);
+        snprintf(leaderboard_line, sizeof(leaderboard_line), "%s,0,0,0,0,%ld\n", user.username, time(NULL)/86400);
+        FILE *leaderboard = fopen("LEADERBOARD.txt", "a");
+        fputs(leaderboard_line, leaderboard);
+        fclose(leaderboard);
         attroff(A_BOLD);
         attroff(COLOR_PAIR(1));
         //makeUserMapFile(user.username);
@@ -488,12 +526,13 @@ void mainMenu() {
     set_menu_sub(mainMenu, derwin(stdscr, 15, 40, 1, 1));
     set_menu_format(mainMenu, 13, 1);
     post_menu(mainMenu);
-
+    refresh();
     int c;
     int flag = 1;
     while (flag) {
         c = getch();
         switch (c) {
+            refresh();
             case KEY_DOWN:
                 menu_driver(mainMenu, REQ_DOWN_ITEM);
                 break;
